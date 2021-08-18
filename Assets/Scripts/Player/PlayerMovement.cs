@@ -97,9 +97,13 @@ public class PlayerMovement : MonoBehaviour
 
 		#region movement
 		if (characterController.isGrounded && verticalVelocity < 0)
+		{
 			verticalVelocity = -gravity * Time.deltaTime;
+		}
 		else
+		{
 			verticalVelocity -= gravity * Time.deltaTime;
+		}
 
 		Vector3 camForward = playerCam.transform.forward;
 		camForward.y = 0;
@@ -118,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
 		else
 			currentSpeed = walkSpeed;
 
-		Vector3 move = camForward * moveInput.y * currentSpeed * Time.deltaTime + camRight * moveInput.x * currentSpeed * Time.deltaTime;
+		Vector3 move = currentSpeed * moveInput.y * Time.deltaTime * camForward + currentSpeed * moveInput.x * Time.deltaTime * camRight;
 
 		move.y = verticalVelocity;
 

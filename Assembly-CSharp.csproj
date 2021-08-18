@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\ItemRegistry.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerInventory.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\MaterialItemSO.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\ShipController.cs" />
     <Compile Include="Assets\Scripts\FoxConsole\GameConsole.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="Assets\Scripts\UI\ItemSlot.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerUI.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\MaterialItemSO.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
