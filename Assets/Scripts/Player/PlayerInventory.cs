@@ -299,7 +299,7 @@ public class PlayerInventory : MonoBehaviour
 				RemoveItems(hotbar[selectedItemSlot], 1);
 			}
 		}
-	}
+		}
 
 	public void OnRotatePitch(InputValue value)
 	{
