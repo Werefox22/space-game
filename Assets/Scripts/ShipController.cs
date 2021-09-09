@@ -131,7 +131,7 @@ public class ShipController : MonoBehaviour
 		averageThrust = tt / thrusters.Count;
 	}
 
-	private void OnDrawGizmos()
+	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.green;
 		Gizmos.DrawSphere(holdPos, 0.5f);
