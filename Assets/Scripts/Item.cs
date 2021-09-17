@@ -3,6 +3,6 @@
 [Serializable]
 public class Item
 {
-	public ItemSO item;
+	public ItemSO data;
 	public int count;
 }

@@ -18,7 +18,7 @@ public class ItemSlot : Selectable
 
 	public void SetItem(Item newItem)
 	{
-		item = newItem.item;
+		item = newItem.data;
 		count = newItem.count;
 
 		itemImage.sprite = item.itemIcon;
