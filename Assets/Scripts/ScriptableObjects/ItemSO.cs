@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "Scriptable Objects/Item")]
 public class ItemSO : ScriptableObject
 {
-	public string itemName;
+	public new string name;
 	public Sprite itemIcon;
 
 	public enum HudHelper
