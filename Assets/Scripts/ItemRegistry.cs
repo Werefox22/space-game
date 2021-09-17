@@ -20,7 +20,7 @@ public class ItemRegistry : MonoBehaviour
 			// check against previous items in list
 			for (int j = 0; j < i; j++)
 			{
-				if (items[j].itemName == items[i].itemName)
+				if (items[j].name == items[i].name)
 				{
 					GameConsole.LogError($"Items number {i} and {j} have the same name!");
 				}
@@ -35,11 +35,11 @@ public class ItemRegistry : MonoBehaviour
 			// I don't know enough about types and how they work to fix it but a else if chain does work so that's what I'm doing
 			if (type == typeof(PlaceableItemSO))
 			{
-				blocksByName.Add(items[i].itemName, (PlaceableItemSO)items[i]);
+				blocksByName.Add(items[i].name, (PlaceableItemSO)items[i]);
 			}
 			else if (type == typeof(MaterialItemSO))
 			{
-				materialsByName.Add(items[i].itemName, (MaterialItemSO)items[i]);
+				materialsByName.Add(items[i].name, (MaterialItemSO)items[i]);
 			}
 		}
 		GameConsole.Log("Finished setting up items");

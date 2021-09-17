@@ -60,6 +60,7 @@ public class UIManager : MonoBehaviour
 	public Canvas canvasRef;
 	public RectTransform screensRoot;
 	public RectTransform helpersRoot;
+	public Text infoTextRef;
 
 	public static PlayerInventory player;
 
@@ -67,7 +68,7 @@ public class UIManager : MonoBehaviour
 	// references
 	public static Canvas canvas;
 	public static CanvasScaler canvasScaler;
-
+	public static Text infoText;
 
 	public static CursorAnchorScript cursorAnchor;
 	public static Image hoverTextImage;
@@ -93,6 +94,7 @@ public class UIManager : MonoBehaviour
 		// set static vars
 		canvas = canvasRef;
 		canvasScaler = canvas.GetComponent<CanvasScaler>();
+		infoText = infoTextRef;
 		waypointRoot = waypointRootRef;
 		waypointPrefab = waypointPrefabRef;
 		uiAudio = uiAudioRef;
@@ -223,7 +225,7 @@ public class UIManager : MonoBehaviour
 			{
 				Item item = new Item
 				{
-					item = player.hotbar[i],
+					data = player.hotbar[i],
 					count = player.GetTotalItemCount(player.hotbar[i])
 				};
 
@@ -253,7 +255,7 @@ public class UIManager : MonoBehaviour
 			to = from;
 			from = null;
 		}
-		else if (from.item == to.item) // if combining stacks
+		else if (from.data == to.data) // if combining stacks
 		{
 			to.count += from.count;
 			from = null;
@@ -299,7 +301,7 @@ public class UIManager : MonoBehaviour
 		// if we're selecting something
 		if (index >= 0 && invHotbarSlots[index].item != null)
 		{
-			itemNameText.text = invHotbarSlots[index].item.itemName;
+			itemNameText.text = invHotbarSlots[index].item.name;
 			helper = invHotbarSlots[index].item.GetHudHelper();
 		}
 		else // not selecting something
@@ -352,7 +354,7 @@ public class UIManager : MonoBehaviour
 			// hover text
 			if (!hideHoverText && hoveringItemSlot.item != null)
 			{
-				cursorAnchor.SetHoverText(hoveringItemSlot.item.itemName);
+				cursorAnchor.SetHoverText(hoveringItemSlot.item.name);
 			}
 			else
 			{
@@ -392,6 +394,22 @@ public class UIManager : MonoBehaviour
 		{
 			GameConsole.LogError("Tried to destroy waypoint, but it was not found in the list!");
 		}
+	}
+
+	public static void SetInfoText(string text)
+	{
+		if (text.Trim() == "")
+		{
+			ClearInfoText();
+			return;
+		}
+
+		infoText.text = text;
+	}
+
+	public static void ClearInfoText()
+	{
+		infoText.text = "";
 	}
 	#endregion
 

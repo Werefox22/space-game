@@ -7,6 +7,7 @@ public class ItemSO : ScriptableObject
 {
 	public new string name;
 	public Sprite itemIcon;
+	public int maxStackSize = 1000;
 
 	public enum HudHelper
 	{

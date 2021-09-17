@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Structure
   - Placeable
+  - DroppedItem
   layers:
   - Default
   - TransparentFX
