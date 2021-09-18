@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 	public float walkSpeed = 5;
 	public float sprintSpeed = 7;
 	public float crouchedSpeed = 3;
-	public float gravity = 0.2f;
+	public float gravityMultiplier = 1f;
 
 	float currentSpeed;
 
@@ -96,13 +96,14 @@ public class PlayerMovement : MonoBehaviour
 		#endregion
 
 		#region movement
+		// if the player is grounded
 		if (characterController.isGrounded && verticalVelocity < 0)
 		{
-			verticalVelocity = -gravity * Time.deltaTime;
+			verticalVelocity = -gravityMultiplier * Mathf.Abs(Physics.gravity.y);
 		}
-		else
+		else // player isn't grounded
 		{
-			verticalVelocity -= gravity * Time.deltaTime;
+			verticalVelocity -= gravityMultiplier * Mathf.Abs(Physics.gravity.y) * Time.deltaTime;
 		}
 
 		Vector3 camForward = playerCam.transform.forward;
@@ -122,11 +123,11 @@ public class PlayerMovement : MonoBehaviour
 		else
 			currentSpeed = walkSpeed;
 
-		Vector3 move = currentSpeed * moveInput.y * Time.deltaTime * camForward + currentSpeed * moveInput.x * Time.deltaTime * camRight;
+		Vector3 move = currentSpeed * moveInput.y * camForward + currentSpeed * moveInput.x * camRight;
 
 		move.y = verticalVelocity;
 
-		characterController.Move(move);
+		characterController.Move(move * Time.deltaTime);
 
 		// sprinting/stamina
 		if (moveInput != Vector2.zero && IsSprinting)
