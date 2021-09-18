@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3fa5b0332dcd7409e241590f46dc19, type: 3}
   m_Name: TestBlockName
   m_EditorClassIdentifier: 
-  name: Test Item With An Unusally Long Name For Testing Purposes
+  name: Block With An Unusally Long Name For Testing Purposes
   itemIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  maxStackSize: 1000
   prefab: {fileID: 3135822497620092836, guid: d92e72e41fdf3ea4490336d97d9d4822, type: 3}
   maxHealth: 0

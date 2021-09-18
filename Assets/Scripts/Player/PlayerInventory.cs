@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using FoxThorne;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using FoxThorne;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -56,28 +56,25 @@ public class PlayerInventory : MonoBehaviour
 		{
 			lastHitCollider = hitInfo.collider;
 
-			bool clearStructure = true;
+			StructureScript newStructure = null;
+			Interactable newInteractable = null;
+			string infoText = "";
 
 			switch (lastHitCollider.tag)
 			{
 				case "Placeable": // A structure
-					observingStructure = GetObservingStructure();
-					clearStructure = false;
+					newStructure = GetObservingStructure();
 					break;
 
 				case "DroppedItem":
-					observingInteractable = lastHitCollider.GetComponentInParent<DroppedItem>();
-					UIManager.SetInfoText(observingInteractable.GetInfoText());
+					newInteractable = lastHitCollider.GetComponentInParent<DroppedItem>();
+					infoText = "Pick up " + newInteractable.GetInfoText();
 					break;
-
-					
 			}
 
-			if (clearStructure)
-			{
-				observingStructure = null;
-			}
-			
+			observingStructure = newStructure;
+			observingInteractable = newInteractable;
+			UIManager.SetInfoText(infoText);
 		}
 		
 		// preview
@@ -183,7 +180,7 @@ public class PlayerInventory : MonoBehaviour
 			}
 
 			// skip empty and other items
-			if (inventory[i] == null || inventory[i].data != itemToGive)
+			if (inventory[i] == null || inventory[i].IsEmpty() || inventory[i].data != itemToGive)
 			{
 				continue;
 			}
@@ -193,7 +190,7 @@ public class PlayerInventory : MonoBehaviour
 			// check how much room is left in the stack
 			int roomLeft = inventory[i].data.maxStackSize - inventory[i].count;
 			// if the item has enough room left
-			if (roomLeft <= amount)
+			if (roomLeft >= amount)
 			{
 				// add the items, update the inventory, return 0 since all items fit
 				inventory[i].count += amount;
@@ -213,18 +210,34 @@ public class PlayerInventory : MonoBehaviour
 		for (int i = 0; i < inventory.Count; i++)
 		{
 			// if we have found an empty slot
-			if (inventory[i] == null)
+			if (inventory[i] == null || inventory[i].IsEmpty())
 			{
-				// fill the slot
-				inventory[i] = new Item
+				// can fit all items in one stack
+				if (itemToGive.maxStackSize >= amount)
 				{
-					data = itemToGive,
-					count = amount
-				};
+					// fill the slot
+					inventory[i] = new Item
+					{
+						data = itemToGive,
+						count = amount
+					};
 
-				// end method
-				InventoryUpdate();
-				return 0;
+					// end method
+					InventoryUpdate();
+					return 0;
+				}
+				else // can't fit all items in one stack
+				{
+					// max out the slot
+					inventory[i] = new Item
+					{
+						data = itemToGive,
+						count = itemToGive.maxStackSize
+					};
+
+					// get the remaining items and continue
+					amount -= itemToGive.maxStackSize;
+				}
 			}
 		}
 
@@ -232,6 +245,16 @@ public class PlayerInventory : MonoBehaviour
 		// so we tell whatever called this how many items didn't make it, so it knows to keep that amount of items
 		InventoryUpdate();
 		return amount;
+	}
+
+	/// <summary>
+	/// Gives the specified item to the player's inventory.
+	/// </summary>
+	/// <param name="item">The item to give.</param>
+	/// <returns>How many items did NOT fit in the player's inventory.</returns>
+	public int GiveItems(Item item)
+	{
+		return GiveItems(item.data, item.count);
 	}
 
 	/// <summary>
@@ -245,7 +268,7 @@ public class PlayerInventory : MonoBehaviour
 		for (int i = 0; i < inventory.Count; i++)
 		{
 			// if the slot is empty
-			if (inventory[i] == null)
+			if (inventory[i] == null || inventory[i].IsEmpty())
 			{
 				// if the amount we're giving fits in one slot
 				if (amount <= itemToGive.maxStackSize)
@@ -292,7 +315,7 @@ public class PlayerInventory : MonoBehaviour
 		for (int i = inventory.Count - 1; i >= 0; i--)
 		{
 			// skip empty and irrelevant items
-			if (inventory[i] == null || inventory[i].data != itemToRemove)
+			if (inventory[i] == null || inventory[i].IsEmpty() || inventory[i].data != itemToRemove)
 			{
 				continue;
 			}
@@ -420,6 +443,7 @@ public class PlayerInventory : MonoBehaviour
 		SelectSlot(num);
 	}
 
+	// left click
 	public void OnPrimaryAction()
 	{
 		// must have a slot selected, an item in that slot, and at least 1 of those in your inventory
@@ -430,7 +454,15 @@ public class PlayerInventory : MonoBehaviour
 				RemoveItems(hotbar[selectedItemSlot], 1);
 			}
 		}
+	}
+
+	public void OnInteract()
+	{
+		if (observingInteractable != null)
+		{
+			observingInteractable.Interact(this);
 		}
+	}
 
 	public void OnRotatePitch(InputValue value)
 	{
@@ -439,12 +471,12 @@ public class PlayerInventory : MonoBehaviour
 
 	public void OnRotateYaw(InputValue value)
 	{
-
+		previewRot.eulerAngles += new Vector3(0, value.Get<float>(), 0);
 	}
 
 	public void OnRotateRoll(InputValue value)
 	{
-
+		previewRot.eulerAngles += new Vector3(0, 0, value.Get<float>());
 	}
 	#endregion
 }

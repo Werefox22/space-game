@@ -41,14 +41,13 @@ public class ItemSlot : Selectable
 	{
 		if (eventData.button != PointerEventData.InputButton.Left || UIManager.grabbedItemSlot != null) return;
 
-		UIManager.hideHoverText = true;
-		UIManager.grabbedItemSlot = this;
-		itemImage.transform.SetParent(UIManager.cursorAnchor.transform, false);
+		Grab();
 	}
 
 	public override void OnPointerUp(PointerEventData eventData)
 	{
-		if (eventData.button != PointerEventData.InputButton.Left) return;
+		// if it's not the left mouse button being released or if the UIManager doesn't think we have an item slot grabbed, return
+		if (eventData.button != PointerEventData.InputButton.Left || UIManager.grabbedItemSlot == null) return;
 
 		// if moving to a different slot
 		if (UIManager.hoveringItemSlot != null)
@@ -64,7 +63,18 @@ public class ItemSlot : Selectable
 			}
 		}
 
-		// unset this as grabbed
+		Release();
+	}
+
+	public void Grab()
+	{
+		UIManager.hideHoverText = true;
+		UIManager.grabbedItemSlot = this;
+		itemImage.transform.SetParent(UIManager.cursorAnchor.transform, false);
+	}
+
+	public void Release()
+	{
 		UIManager.hideHoverText = false;
 		UIManager.grabbedItemSlot = null;
 

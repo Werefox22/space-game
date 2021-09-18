@@ -31,8 +31,10 @@ public class CursorAnchorScript : MonoBehaviour
 		// set size
 		Vector2 extents = Vector2.zero; // changing this value has no apparent effect. no idea what it does or why it's required, couldn't find any kind of documentation
 
-		float targetWidth = hoverTextText.cachedTextGeneratorForLayout.GetPreferredWidth(text, hoverTextText.GetGenerationSettings(extents));
-		float targetHeight = hoverTextText.cachedTextGeneratorForLayout.GetPreferredHeight(text, hoverTextText.GetGenerationSettings(extents));
+		TextGenerationSettings settings = hoverTextText.GetGenerationSettings(extents);
+
+		float targetWidth = hoverTextText.cachedTextGeneratorForLayout.GetPreferredWidth(text, settings);
+		float targetHeight = hoverTextText.cachedTextGeneratorForLayout.GetPreferredHeight(text, settings);
 
 		hoverTextImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, targetWidth + padding * 2);
 		hoverTextImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight + padding * 2);

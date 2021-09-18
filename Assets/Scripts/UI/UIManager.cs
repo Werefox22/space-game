@@ -1,5 +1,6 @@
 ﻿using FoxThorne;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -152,7 +153,7 @@ public class UIManager : MonoBehaviour
 
 	#region screens
 	/// <summary>
-	/// Change the current screen.
+	/// Sets the active screen by index.
 	/// </summary>
 	/// <param name="screenIndex">The screen to enable. Set negative to disable all screens.</param>
 	public static void SetCurrentScreen(int screenIndex)
@@ -166,32 +167,44 @@ public class UIManager : MonoBehaviour
 		CurrentScreen = screenIndex;
 
 		UpdateCursorPosition(new Vector2(0, 0));
+
+		OnScreenUpdate();
 	}
 
+	/// <summary>
+	/// Sets the active screen by name.
+	/// </summary>
+	/// <param name="screenName">The name of the screen to enable.</param>
 	public static void SetCurrentScreen(string screenName)
 	{
-		int index = -1;
-		bool found = false;
+		// find screen index of screenName
 		for (int i = 0; i < screens.Count; i++)
 		{
-			// enable given screen, disable all other screens
-			if (found || screens[i].name.Contains(screenName))
+			if (screens[i].name.Contains(screenName))
 			{
-				screens[i].SetActive(true);
-				index = i;
-
-				// once we find a screen, we should stop checking for other screens. 
-				// this prevents the possibility of having two screens active at once, 
-				// which could happen if two screens have the same name.
-				found = true;
-			}
-			else
-			{
-				screens[i].SetActive(false);
+				SetCurrentScreen(i);
+				return;
 			}
 		}
 
-		CurrentScreen = index;
+		GameConsole.LogWarning($"No screen with name '{screenName}' was found!");
+		SetCurrentScreen(-1);
+	}
+
+	/// <summary>
+	/// Clears all screens.
+	/// </summary>
+	public static void ClearScreen()
+	{
+		SetCurrentScreen(-1);
+	}
+
+	static void OnScreenUpdate()
+	{
+		if (grabbedItemSlot != null)
+		{
+			grabbedItemSlot.Release();
+		}
 	}
 	#endregion
 
@@ -257,14 +270,30 @@ public class UIManager : MonoBehaviour
 		}
 		else if (from.data == to.data) // if combining stacks
 		{
-			to.count += from.count;
-			from = null;
+			// check how much space is in the stack
+			int difference = to.data.maxStackSize - to.count;
+			
+			// if there's room for all of it
+			if (difference >= from.count)
+			{
+				to.count += from.count;
+				from = null;
+			}
+			else // not enough room
+			{
+				to.count += difference;
+				from.count -= difference;
+			}
 		}
 		else // items don't match
 		{
-			return;
+			// swap them
+			Item temp = from;
+			from = to;
+			to = temp;
 		}
 
+		// set slots
 		player.inventory[fromIndex] = from;
 		player.inventory[toIndex] = to;
 
