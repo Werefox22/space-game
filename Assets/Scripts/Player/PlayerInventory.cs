@@ -36,10 +36,13 @@ public class PlayerInventory : MonoBehaviour
 
 	[Header("References")]
 	public Camera playerCam;
+	string interactBinding;
 
 	void Start()
 	{
 		UIManager.player = this;
+
+		interactBinding = PlayerSettings.GetBinding("Interact");
 
 		InventoryUpdate();
 
@@ -51,30 +54,41 @@ public class PlayerInventory : MonoBehaviour
 		// raycast
 		raycastHit = Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hitInfo, raycastMaxDistance, raycastLayerMask.value);
 
-		// if we're looking at a new object
-		if (raycastHit && hitInfo.collider != lastHitCollider)
+		if (raycastHit)
 		{
-			lastHitCollider = hitInfo.collider;
-
-			StructureScript newStructure = null;
-			Interactable newInteractable = null;
-			string infoText = "";
-
-			switch (lastHitCollider.tag)
+			// if we're looking at a new object
+			if (hitInfo.collider != lastHitCollider)
 			{
-				case "Placeable": // A structure
-					newStructure = GetObservingStructure();
-					break;
+				lastHitCollider = hitInfo.collider;
 
-				case "DroppedItem":
-					newInteractable = lastHitCollider.GetComponentInParent<DroppedItem>();
-					infoText = "Pick up " + newInteractable.GetInfoText();
-					break;
+				StructureScript newStructure = null;
+				Interactable newInteractable = null;
+				string infoText = "";
+
+				switch (lastHitCollider.tag)
+				{
+					case "Placeable": // A structure
+						newStructure = GetObservingStructure();
+						break;
+
+					case "DroppedItem":
+						newInteractable = lastHitCollider.GetComponentInParent<DroppedItem>();
+						infoText = $"[{interactBinding}] Pick up {newInteractable.GetInfoText()}";
+						break;
+				}
+
+				observingStructure = newStructure;
+				observingInteractable = newInteractable;
+				UIManager.SetInfoText(infoText);
 			}
+		}
+		else // raycast did not hit
+		{
+			lastHitCollider = null;
 
-			observingStructure = newStructure;
-			observingInteractable = newInteractable;
-			UIManager.SetInfoText(infoText);
+			observingStructure = null;
+			observingInteractable = null;
+			UIManager.ClearInfoText();
 		}
 		
 		// preview

@@ -86,8 +86,6 @@ public class UIManager : MonoBehaviour
 
 	public static List<GameObject> screens = new List<GameObject>();
 
-	// cursor
-
 	static UIManager uim;
 
 	private void Start()
