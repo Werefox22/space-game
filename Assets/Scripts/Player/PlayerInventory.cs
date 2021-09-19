@@ -457,6 +457,34 @@ public class PlayerInventory : MonoBehaviour
 		SelectSlot(num);
 	}
 
+	public void OnSelectScroll(InputValue value)
+	{
+		float input = value.Get<float>();
+
+		if (input == 0) return;
+
+		int num = selectedItemSlot;
+
+		if (input > 0)
+		{
+			num++;
+			if (num >= hotbar.Count) 
+			{
+				num = 0;
+			}
+		}
+		else
+		{
+			num--;
+			if (num < 0)
+			{
+				num = hotbar.Count - 1;
+			}
+		}
+
+		SelectSlot(num);
+	}
+
 	// left click
 	public void OnPrimaryAction()
 	{

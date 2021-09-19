@@ -86,9 +86,25 @@
                     "interactions": ""
                 },
                 {
+                    "name": "SelectScroll",
+                    "type": "PassThrough",
+                    "id": "3be87464-3b9a-44f9-a0c6-53f473114555",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "b5713679-fbe4-4760-afaf-c0a5a143db78",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Drop",
+                    "type": "Button",
+                    "id": "c7cf0946-ed6c-4c36-ac96-a7b7b20f806d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -517,17 +533,6 @@
                 },
                 {
                     "name": "",
-                    "id": "36efd9e9-e68f-456d-9fd8-73e44b7f02c7",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "9daedaa3-df35-4f24-adcb-70886a06feee",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -646,6 +651,39 @@
                     "action": "RotateRoll",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "fb9fb3d3-8606-4b8e-b10d-52c9de9e445d",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36efd9e9-e68f-456d-9fd8-73e44b7f02c7",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fdbf337a-7814-4818-adc5-97389d30e745",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
