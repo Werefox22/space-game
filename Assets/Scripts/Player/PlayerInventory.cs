@@ -36,15 +36,17 @@ public class PlayerInventory : MonoBehaviour
 
 	[Header("References")]
 	public Camera playerCam;
-	string interactBinding;
+	public PlayerUI playerUI;
 	public GameObject droppedItemPrefab;
 
+	// bindings
+	string interactBinding;
 
 	void Start()
 	{
 		UIManager.player = this;
 
-		interactBinding = PlayerSettings.GetBinding("Interact");
+		UpdateBindingStrings();
 
 		InventoryUpdate();
 
@@ -124,6 +126,11 @@ public class PlayerInventory : MonoBehaviour
 	public void UpdateObserving()
 	{
 		lastHitCollider = null;
+	}
+
+	public void UpdateBindingStrings()
+	{
+		interactBinding = PlayerSettings.GetBinding("Interact");
 	}
 
 	#region inventory
@@ -512,8 +519,7 @@ public class PlayerInventory : MonoBehaviour
 	public void OnSelectNum(InputValue value)
 	{
 		int num = (int)value.Get<float>();
-		num--;
-		SelectSlot(num);
+		SelectSlot(num--);
 	}
 
 	public void OnSelectScroll(InputValue value)
@@ -526,18 +532,18 @@ public class PlayerInventory : MonoBehaviour
 
 		if (input > 0)
 		{
-			num++;
-			if (num >= hotbar.Count) 
-			{
-				num = 0;
-			}
-		}
-		else
-		{
 			num--;
 			if (num < 0)
 			{
 				num = hotbar.Count - 1;
+			}
+		}
+		else
+		{
+			num++;
+			if (num >= hotbar.Count)
+			{
+				num = 0;
 			}
 		}
 
@@ -559,7 +565,15 @@ public class PlayerInventory : MonoBehaviour
 
 	public void OnDrop()
 	{
-		DropItem(selectedItemData, 1);
+		if (selectedItemData != null)
+		{
+			int amount = 1;
+
+			if (playerUI.IsShiftHeld)
+				amount = selectedItemData.maxStackSize;
+
+			DropItem(selectedItemData, amount);
+		}
 	}
 
 	public void OnInteract()

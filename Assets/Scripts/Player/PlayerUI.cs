@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerUI : MonoBehaviour
 {
+	public bool IsShiftHeld { get; private set; }
+	public bool IsControlHeld { get; private set; }
+	public bool IsControlShiftHeld { get { return IsShiftHeld && IsControlHeld; } }
+
 	[Header("References")]
 	public PlayerInput playerInput;
 	public PlayerInventory playerInventory;
@@ -63,7 +67,40 @@ public class PlayerUI : MonoBehaviour
 
 		if (slot != null)
 		{
-			playerInventory.DropItem(slot.index, 1);
+			int amount = 1;
+
+			if (IsShiftHeld)
+				amount = slot.count;
+
+			playerInventory.DropItem(slot.index, amount);
+		}
+	}
+
+	public void OnShift(InputValue value)
+	{
+		float state = value.Get<float>();
+
+		if (state == 0)
+		{
+			IsShiftHeld = false;
+		}
+		else
+		{
+			IsShiftHeld = true;
+		}
+	}
+
+	public void OnControl(InputValue value)
+	{
+		float state = value.Get<float>();
+
+		if (state == 0)
+		{
+			IsControlHeld = false;
+		}
+		else
+		{
+			IsControlHeld = true;
 		}
 	}
 }

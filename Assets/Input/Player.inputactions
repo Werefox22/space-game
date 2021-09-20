@@ -132,6 +132,22 @@
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Shift",
+                    "type": "PassThrough",
+                    "id": "7df4aacc-bb41-453a-b752-c0a333567555",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Control",
+                    "type": "PassThrough",
+                    "id": "4a12be26-1daa-4877-bedf-d75adf7b2193",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -684,6 +700,28 @@
                     "action": "SelectScroll",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "324ea723-ddf2-4262-946a-ae62203b9329",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Control",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4c54d727-5a62-426c-b6e5-a8940042df2c",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shift",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -775,6 +813,22 @@
                     "name": "UIDrop",
                     "type": "Button",
                     "id": "ad26f675-8993-46fd-a535-d48d214dd543",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Shift",
+                    "type": "PassThrough",
+                    "id": "4eb8ccaf-5c65-48d6-9e0a-75be39b8bf4b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Control",
+                    "type": "PassThrough",
+                    "id": "5272c7db-6d30-41a0-8879-65b50cdd0873",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -1196,6 +1250,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "UIDrop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8afa92c7-ebe2-4f83-bdb3-a4a047955341",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shift",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "830a1247-f581-4a4a-88f7-c7b2d1b685b4",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Control",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

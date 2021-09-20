@@ -196,6 +196,7 @@ MonoBehaviour:
   raycastMaxDistance: 10
   raycastHit: 0
   playerCam: {fileID: 3624398494719751042}
+  playerUI: {fileID: 3624398493273630090}
   droppedItemPrefab: {fileID: 1638288597831803565, guid: f473dcc09cab0e549a6f7dd71d22d1e2, type: 3}
 --- !u!114 &3624398493273630091
 MonoBehaviour:
