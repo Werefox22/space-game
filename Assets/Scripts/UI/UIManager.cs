@@ -52,6 +52,10 @@ public class UIManager : MonoBehaviour
 
 	static List<WaypointScript> waypoints = new List<WaypointScript>();
 
+	[Header("Alerts`")]
+	public float fadeOutTime = 1;
+	float fadeTimer = 0;
+
 	[Header("Audio")]
 	public UIAudioScript uiAudioRef;
 
@@ -62,6 +66,7 @@ public class UIManager : MonoBehaviour
 	public RectTransform screensRoot;
 	public RectTransform helpersRoot;
 	public Text infoTextRef;
+	public Text alertTextRef;
 
 	public static PlayerInventory player;
 
@@ -74,6 +79,9 @@ public class UIManager : MonoBehaviour
 	public static CursorAnchorScript cursorAnchor;
 	public static Image hoverTextImage;
 	public static Text hoverTextText;
+
+	public static Text alertText;
+	public static float alertTimer = 0;
 
 	// inventory cursor
 	public static bool hideHoverText = false;
@@ -98,6 +106,7 @@ public class UIManager : MonoBehaviour
 		waypointPrefab = waypointPrefabRef;
 		uiAudio = uiAudioRef;
 		itemNameText = itemNameTextRef;
+		alertText = alertTextRef;
 
 		// get screens
 		foreach (Transform child in screensRoot)
@@ -147,6 +156,26 @@ public class UIManager : MonoBehaviour
 			hudHotbarSlots.Add(hudScript);
 		}
 
+	}
+
+	private void Update()
+	{
+		if (alertTimer > 0)
+		{
+			alertText.color = Color.red;
+			alertTimer -= Time.deltaTime;
+			fadeTimer = fadeOutTime;
+		}
+		else if (fadeTimer > 0)
+		{
+			float percent = fadeTimer / fadeOutTime;
+			alertText.color = new Color(1, 0, 0, percent);
+			fadeTimer -= Time.deltaTime;
+		}
+		else
+		{
+			alertText.color = Color.clear;
+		}
 	}
 
 	#region screens
@@ -396,6 +425,28 @@ public class UIManager : MonoBehaviour
 	#endregion
 
 	#region hud
+	public static void Alert(string message, float time = 5)
+	{
+		alertText.text = message;
+		alertTimer = time;
+	}
+
+	public static void SetInfoText(string text)
+	{
+		if (text.Trim() == "")
+		{
+			ClearInfoText();
+			return;
+		}
+
+		infoText.text = text;
+	}
+
+	public static void ClearInfoText()
+	{
+		infoText.text = "";
+	}
+
 	public static WaypointScript CreateWaypoint(Vector3 position, string text)
 	{
 		GameObject go = Instantiate(waypointPrefab, waypointRoot);
@@ -423,21 +474,6 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
-	public static void SetInfoText(string text)
-	{
-		if (text.Trim() == "")
-		{
-			ClearInfoText();
-			return;
-		}
-
-		infoText.text = text;
-	}
-
-	public static void ClearInfoText()
-	{
-		infoText.text = "";
-	}
 	#endregion
 
 	public static UIManager Get()

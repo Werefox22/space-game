@@ -770,6 +770,14 @@
                     "expectedControlType": "Quaternion",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "UIDrop",
+                    "type": "Button",
+                    "id": "ad26f675-8993-46fd-a535-d48d214dd543",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -1177,6 +1185,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db86ecfe-6d03-436e-9d4c-09152ce77a60",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "UIDrop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

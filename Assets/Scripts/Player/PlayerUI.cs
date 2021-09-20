@@ -8,7 +8,7 @@ public class PlayerUI : MonoBehaviour
 {
 	[Header("References")]
 	public PlayerInput playerInput;
-	UIManager uiManager;
+	public PlayerInventory playerInventory;
 
 	private void Start()
 	{
@@ -55,5 +55,15 @@ public class PlayerUI : MonoBehaviour
 	public void OnPoint(InputValue value)
 	{
 		UIManager.UpdateCursorPosition(value.Get<Vector2>());
+	}
+
+	public void OnUIDrop()
+	{
+		ItemSlot slot = UIManager.hoveringItemSlot;
+
+		if (slot != null)
+		{
+			playerInventory.DropItem(slot.index, 1);
+		}
 	}
 }

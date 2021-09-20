@@ -196,6 +196,7 @@ MonoBehaviour:
   raycastMaxDistance: 10
   raycastHit: 0
   playerCam: {fileID: 3624398494719751042}
+  droppedItemPrefab: {fileID: 1638288597831803565, guid: f473dcc09cab0e549a6f7dd71d22d1e2, type: 3}
 --- !u!114 &3624398493273630091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +217,7 @@ MonoBehaviour:
   walkSpeed: 5
   sprintSpeed: 7
   crouchedSpeed: 3
-  gravity: 0.5
+  gravityMultiplier: 1
   toggleSprint: 0
   maxStamina: 10
   staminaRecoveryRate: 1
@@ -259,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 3624398493273630092}
+  playerInventory: {fileID: 6252218937081090186}
 --- !u!114 &3624398493273630092
 MonoBehaviour:
   m_ObjectHideFlags: 0

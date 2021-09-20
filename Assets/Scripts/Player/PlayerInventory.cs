@@ -37,6 +37,8 @@ public class PlayerInventory : MonoBehaviour
 	[Header("References")]
 	public Camera playerCam;
 	string interactBinding;
+	public GameObject droppedItemPrefab;
+
 
 	void Start()
 	{
@@ -114,6 +116,14 @@ public class PlayerInventory : MonoBehaviour
 
 			previewObj.transform.position = previewPos;
 		}
+	}
+
+	/// <summary>
+	/// Resets what the player is looking at so it will be updated on the next frame.
+	/// </summary>
+	public void UpdateObserving()
+	{
+		lastHitCollider = null;
 	}
 
 	#region inventory
@@ -322,9 +332,11 @@ public class PlayerInventory : MonoBehaviour
 	/// </summary>
 	/// <param name="itemToRemove">The item to remove.</param>
 	/// <param name="amount">How much of <paramref name="itemToRemove"/> to remove.</param>
-	/// <returns>True if the player had at least <paramref name="amount"/> of <paramref name="itemToRemove"/> in their inventory.</returns>
-	public bool RemoveItems(ItemSO itemToRemove, int amount)
+	/// <returns>How much of <paramref name="amount"/> is left over, or -1 if it fails.</returns>
+	public int RemoveItems(ItemSO itemToRemove, int amount)
 	{
+		if (itemToRemove == null || amount <= 0) return -1;
+
 		int remaining = amount;
 		for (int i = inventory.Count - 1; i >= 0; i--)
 		{
@@ -351,13 +363,13 @@ public class PlayerInventory : MonoBehaviour
 			if (remaining <= 0)
 			{
 				InventoryUpdate();
-				return true;
+				return 0;
 			}
 		}
 
 		// if we've reached the end of the loop, the player didn't have enough items
 		InventoryUpdate();
-		return false;
+		return remaining;
 	}
 
 	/// <summary>
@@ -389,6 +401,53 @@ public class PlayerInventory : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	public void DropItem(ItemSO item, int amount)
+	{
+		// get the number of items the player had in their inventory
+		int r = amount - RemoveItems(item, amount);
+
+		if (r > 0)
+		{
+			SpawnDroppedItem(item, r);
+		}
+	}
+
+	public void DropItem(int index, int amount)
+	{
+		if (inventory[index] !=  null && !inventory[index].IsEmpty())
+		{
+			// if we're trying to drop more item than this slot has
+			if (amount > inventory[index].count)
+			{
+				// only drop what's there
+				amount = inventory[index].count;
+			}
+
+			SpawnDroppedItem(inventory[index].data, amount);
+			inventory[index].count -= amount;
+			InventoryUpdate();
+		}
+	}
+
+	void SpawnDroppedItem(Item item)
+	{
+		GameObject go = Instantiate(droppedItemPrefab, playerCam.transform.position + playerCam.transform.forward, Quaternion.identity);
+		DroppedItem script = go.GetComponent<DroppedItem>();
+
+		script.item = item;
+	}
+
+	void SpawnDroppedItem(ItemSO data, int count)
+	{
+		Item i = new Item
+		{
+			data = data,
+			count = count
+		};
+
+		SpawnDroppedItem(i);
 	}
 	#endregion
 
@@ -496,6 +555,11 @@ public class PlayerInventory : MonoBehaviour
 				RemoveItems(hotbar[selectedItemSlot], 1);
 			}
 		}
+	}
+
+	public void OnDrop()
+	{
+		DropItem(selectedItemData, 1);
 	}
 
 	public void OnInteract()

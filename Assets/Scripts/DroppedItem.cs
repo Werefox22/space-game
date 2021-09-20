@@ -17,7 +17,10 @@ public class DroppedItem : Interactable
 		else
 		{
 			item.count = rem;
+			UIManager.Alert("Inventory full!");
 		}
+
+		player.UpdateObserving();
 	}
 
 	public override string GetInfoText()
