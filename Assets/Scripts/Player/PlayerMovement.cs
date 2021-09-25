@@ -73,13 +73,6 @@ public class PlayerMovement : MonoBehaviour
 	public CharacterController characterController;
 	public PlayerUI playerUI;
 
-	UIManager uiManager;
-
-	void Start()
-	{
-		uiManager = UIManager.Get();
-	}
-
 	void Update()
 	{
 		#region camera
@@ -99,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
 		// if the player is grounded
 		if (characterController.isGrounded && verticalVelocity < 0)
 		{
-			verticalVelocity = -gravityMultiplier * Mathf.Abs(Physics.gravity.y);
+			verticalVelocity = -1;
 		}
 		else // player isn't grounded
 		{

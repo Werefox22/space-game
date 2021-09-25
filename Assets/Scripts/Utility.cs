@@ -228,7 +228,7 @@ namespace FoxThorne
 
 		#region layers
 		/// <summary>
-		/// Sets the layer for a gameobject and all its children.
+		/// Sets the layer for a gameobject and all of its children.
 		/// </summary>
 		/// <param name="rootObject">The root gameobject.</param>
 		/// <param name="layer">The layer to be set.</param>
@@ -245,6 +245,27 @@ namespace FoxThorne
 					return;
 
 				SetLayerRecursively(child.gameObject, layer);
+			}
+		}
+
+		/// <summary>
+		/// Sets the tag for a gameobject and all of its children.
+		/// </summary>
+		/// <param name="rootObject">The root gameobject.</param>
+		/// <param name="tag">The tag to be set.</param>
+		public static void SetTagRecursively(GameObject rootObject, string tag)
+		{
+			if (rootObject == null)
+				return;
+
+			rootObject.tag = tag;
+
+			foreach (Transform child in rootObject.transform)
+			{
+				if (child == null)
+					return;
+
+				SetTagRecursively(child.gameObject, tag);
 			}
 		}
 		#endregion

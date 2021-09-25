@@ -50,126 +50,126 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory:
-  - data: {fileID: 0}
-    count: 10
-  - data: {fileID: 0}
-    count: 10
-  - data: {fileID: 0}
-    count: 10
-  - data: {fileID: 0}
-    count: 10
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
-  - data: {fileID: 0}
-    count: 7
+  - data: {fileID: 11400000, guid: 3659250ab5baf36439d69e0d0884e610, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 1000
+  - data: {fileID: 11400000, guid: c0bb37066a7a88f43943eb1685b2556a, type: 2}
+    count: 500
   hotbar:
   - {fileID: 11400000, guid: 3659250ab5baf36439d69e0d0884e610, type: 2}
   - {fileID: 0}
@@ -184,15 +184,17 @@ MonoBehaviour:
   selectedItemSlot: -1
   selectedItemData: {fileID: 0}
   previewObj: {fileID: 0}
+  previewValidator: {fileID: 0}
   previewPos: {x: 0, y: 0, z: 0}
-  previewRot: {x: 0, y: 0, z: 0, w: 0}
-  previewValidMaterial: {fileID: 2100000, guid: 16723b6e48aab1e41bccd3ab60e0fe03, type: 2}
-  previewInvalidMaterial: {fileID: 2100000, guid: 1b2f90472ebf1d54ab863b2b6ada9891, type: 2}
+  previewRot: {x: 0, y: 0, z: 0}
+  previewMaterial: {fileID: 2100000, guid: 16723b6e48aab1e41bccd3ab60e0fe03, type: 2}
+  validColor: {r: 0, g: 1, b: 0, a: 0.5019608}
+  invalidColor: {r: 1, g: 0, b: 0, a: 0.5019608}
   observingStructure: {fileID: 0}
   observingInteractable: {fileID: 0}
   raycastLayerMask:
     serializedVersion: 2
-    m_Bits: 17
+    m_Bits: 2065
   raycastMaxDistance: 10
   raycastHit: 0
   playerCam: {fileID: 3624398494719751042}
@@ -218,15 +220,15 @@ MonoBehaviour:
   walkSpeed: 5
   sprintSpeed: 7
   crouchedSpeed: 3
-  gravityMultiplier: 1
+  gravityMultiplier: 1.25
   toggleSprint: 0
   maxStamina: 10
   staminaRecoveryRate: 1
   toggleCrouch: 0
-  standingHeight: 1
-  crouchingHeight: 0.4
+  standingHeight: 1.7
+  crouchingHeight: 1.4
   crouchTime: 0.2
-  jumpSpeed: 0.25
+  jumpSpeed: 7
   verticalVelocity: 0
   moveInput: {x: 0, y: 0}
   footstepSounds:
@@ -309,7 +311,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!82 &3624398493273630088
 AudioSource:
   m_ObjectHideFlags: 0
@@ -433,7 +435,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3624398494719751040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3624398493273630089}

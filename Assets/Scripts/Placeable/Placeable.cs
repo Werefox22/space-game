@@ -9,12 +9,8 @@ public class Placeable : MonoBehaviour
 
 	[Header("References")]
 	public StructureScript rootStructure;
+	public GameObject collidersRoot;
 	WaypointScript waypoint;
-
-	private void Start()
-	{
-
-	}
 
 	private void Update()
 	{

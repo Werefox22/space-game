@@ -9,6 +9,8 @@ public class PlaceableItemSO : ItemSO
 	
 	public override bool PrimaryAction(PlayerInventory player)
 	{
+		if (player.previewObj == null || !player.previewValidator.IsValid) return false;
+
 		StructureScript s = player.observingStructure;
 
 		if (s == null)

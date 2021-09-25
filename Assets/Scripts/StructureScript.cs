@@ -21,7 +21,7 @@ public class StructureScript : MonoBehaviour
 
 	public void AddBlock(Placeable newBlock)
 	{
-		newBlock.tag = "Placeable";
+		Utility.SetTagRecursively(newBlock.gameObject, "Placeable");
 		newBlock.rootStructure = this;
 		blocks.Add(newBlock);
 	}

@@ -15,10 +15,12 @@ public class PlayerInventory : MonoBehaviour
 
 	[Header("Placement")]
 	public GameObject previewObj;
+	public PlacementValidationScript previewValidator;
 	public Vector3 previewPos;
 	public Vector3 previewRot;
-	public Material previewValidMaterial;
-	public Material previewInvalidMaterial;
+	public Material previewMaterial;
+	public Color validColor = Color.green;
+	public Color invalidColor = Color.red;
 
 	public StructureScript observingStructure;
 
@@ -100,6 +102,15 @@ public class PlayerInventory : MonoBehaviour
 		// preview
 		if (previewObj != null) // if previewing
 		{
+			if (previewValidator.IsValid)
+			{
+				previewMaterial.SetColor("_UnlitColor", validColor);
+			}
+			else
+			{
+				previewMaterial.SetColor("_UnlitColor", invalidColor);
+			}
+
 			previewRot += previewRotInput;
 
 			// if the raycast hit something
@@ -108,8 +119,9 @@ public class PlayerInventory : MonoBehaviour
 				// if we're looking at a structure
 				if (observingStructure != null)
 				{
-					previewPos = observingStructure.GetSnappedPosition(hitInfo.transform.position + hitInfo.normal);
+					previewPos = observingStructure.GetSnappedPosition(hitInfo.collider.transform.position + hitInfo.normal);
 					previewRot = observingStructure.transform.eulerAngles;
+
 				}
 				else // not looking at a structure
 				{
@@ -480,16 +492,24 @@ public class PlayerInventory : MonoBehaviour
 		previewObj.name = "Preview of " + item.name;
 		Utility.SetLayerRecursively(previewObj, LayerMask.NameToLayer("PlacementPreview"));
 
-		// disable components
-		foreach (Collider c in previewObj.GetComponentsInChildren<Collider>())
+		// set up validation
+		previewValidator = previewObj.AddComponent<PlacementValidationScript>();
+		Rigidbody rb = previewObj.AddComponent<Rigidbody>();
+		rb.isKinematic = false;
+
+		// modify colliders
+		Placeable p = previewObj.GetComponent<Placeable>();
+		p.collidersRoot.transform.localScale *= 0.99f;
+		foreach (Collider c in p.collidersRoot.GetComponentsInChildren<Collider>())
 		{
-			c.enabled = false;
+			c.isTrigger = true;
 		}
+		
 
 		// set preview mat
 		foreach (Renderer r in previewObj.GetComponentsInChildren<Renderer>())
 		{
-			r.material = previewValidMaterial;
+			r.material = previewMaterial;
 			r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 		}
 	}
@@ -513,7 +533,11 @@ public class PlayerInventory : MonoBehaviour
 		go.transform.rotation = Quaternion.Euler(previewRot);
 
 		StructureScript ss = go.AddComponent<StructureScript>();
-		// tell structure whether it's a ship or not
+		if (previewValidator.IsShip)
+		{
+			go.AddComponent<Rigidbody>();
+			ss.isShip = true;
+		}
 
 		return ss;
 	}
