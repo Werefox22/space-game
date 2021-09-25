@@ -16,11 +16,13 @@ public class PlayerInventory : MonoBehaviour
 	[Header("Placement")]
 	public GameObject previewObj;
 	public Vector3 previewPos;
-	public Quaternion previewRot;
+	public Vector3 previewRot;
 	public Material previewValidMaterial;
 	public Material previewInvalidMaterial;
 
 	public StructureScript observingStructure;
+
+	Vector3 previewRotInput = Vector3.zero;
 
 	[Header("Interaction")]
 	public Interactable observingInteractable;
@@ -98,13 +100,16 @@ public class PlayerInventory : MonoBehaviour
 		// preview
 		if (previewObj != null) // if previewing
 		{
+			previewRot += previewRotInput;
+
 			// if the raycast hit something
 			if (raycastHit)
 			{
 				// if we're looking at a structure
 				if (observingStructure != null)
 				{
-					previewPos = observingStructure.GetSnappedPosition(hitInfo.point + hitInfo.normal / 2);
+					previewPos = observingStructure.GetSnappedPosition(hitInfo.transform.position + hitInfo.normal);
+					previewRot = observingStructure.transform.eulerAngles;
 				}
 				else // not looking at a structure
 				{
@@ -116,7 +121,11 @@ public class PlayerInventory : MonoBehaviour
 				previewPos = playerCam.transform.position + playerCam.transform.forward * raycastMaxDistance;
 			}
 
-			previewObj.transform.position = previewPos;
+			previewObj.transform.SetPositionAndRotation(previewPos, Quaternion.Euler(previewRot));
+		}
+		else // not previewing
+		{
+			previewRot = Vector3.zero;
 		}
 	}
 
@@ -467,7 +476,7 @@ public class PlayerInventory : MonoBehaviour
 			DestroyPreview();
 		}
 
-		previewObj = Instantiate(item.prefab, previewPos, previewRot);
+		previewObj = Instantiate(item.prefab, previewPos, Quaternion.Euler(previewRot));
 		previewObj.name = "Preview of " + item.name;
 		Utility.SetLayerRecursively(previewObj, LayerMask.NameToLayer("PlacementPreview"));
 
@@ -501,7 +510,7 @@ public class PlayerInventory : MonoBehaviour
 	{
 		GameObject go = new GameObject("Structure");
 		go.transform.position = previewPos;
-		go.transform.rotation = previewRot;
+		go.transform.rotation = Quaternion.Euler(previewRot);
 
 		StructureScript ss = go.AddComponent<StructureScript>();
 		// tell structure whether it's a ship or not
@@ -519,7 +528,7 @@ public class PlayerInventory : MonoBehaviour
 	public void OnSelectNum(InputValue value)
 	{
 		int num = (int)value.Get<float>();
-		SelectSlot(num--);
+		SelectSlot(num - 1);
 	}
 
 	public void OnSelectScroll(InputValue value)
@@ -586,17 +595,17 @@ public class PlayerInventory : MonoBehaviour
 
 	public void OnRotatePitch(InputValue value)
 	{
-		previewRot.eulerAngles += new Vector3(value.Get<float>(), 0, 0);
+		previewRotInput.x = value.Get<float>();
 	}
 
 	public void OnRotateYaw(InputValue value)
 	{
-		previewRot.eulerAngles += new Vector3(0, value.Get<float>(), 0);
+		previewRotInput.y = value.Get<float>();
 	}
 
 	public void OnRotateRoll(InputValue value)
 	{
-		previewRot.eulerAngles += new Vector3(0, 0, value.Get<float>());
+		previewRotInput.z = value.Get<float>();
 	}
 	#endregion
 }

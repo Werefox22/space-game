@@ -28,12 +28,12 @@ public class StructureScript : MonoBehaviour
 
 	public Vector3 GetSnappedPosition(Vector3 position)
 	{
-		position -= transform.position;
+		Vector3 localPos = transform.InverseTransformPoint(position);
 
-		position = Utility.RoundVectorToInt(position);
+		localPos = Utility.RoundVectorToInt(localPos);
 
-		position += transform.position;
+		Vector3 worldPos = transform.TransformPoint(localPos);
 
-		return position;
+		return worldPos;
 	}
 }

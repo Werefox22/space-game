@@ -11,8 +11,6 @@ public class PlayerSettings : MonoBehaviour
 	private void Start()
 	{
 		map = playerInput.actions.FindActionMap("Player");
-
-		Debug.Log(GetBinding("Move"));
 	}
 
 	/// <summary>

@@ -16,7 +16,7 @@ public class PlaceableItemSO : ItemSO
 			s = player.CreateStructureAtPreview();
 		}
 
-		GameObject go = Instantiate(prefab, player.previewPos, player.previewRot, s.transform);
+		GameObject go = Instantiate(prefab, player.previewPos, Quaternion.Euler(player.previewRot), s.transform);
 		s.AddBlock(go.GetComponent<Placeable>());
 
 		return true;
