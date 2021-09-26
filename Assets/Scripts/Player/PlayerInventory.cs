@@ -121,7 +121,6 @@ public class PlayerInventory : MonoBehaviour
 				{
 					previewPos = observingStructure.GetSnappedPosition(hitInfo.collider.transform.position + hitInfo.normal);
 					previewRot = observingStructure.transform.eulerAngles;
-
 				}
 				else // not looking at a structure
 				{
