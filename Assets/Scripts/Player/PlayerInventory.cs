@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerInventory : MonoBehaviour
 {
 	[Header("Lists")]
-	public List<Item> inventory = new List<Item>(60);
 	public List<ItemSO> hotbar = new List<ItemSO>(10);
 
 	[Header("Hotbar")]
@@ -22,9 +21,6 @@ public class PlayerInventory : MonoBehaviour
 		public int Slot;
 		public ItemSO Data;
 	}
-
-	public int selectedItemSlot = -1;
-	public ItemSO selectedItemData;
 
 	[Header("Placement")]
 	public GameObject previewObj;
@@ -55,6 +51,7 @@ public class PlayerInventory : MonoBehaviour
 
 
 	[Header("References")]
+	public Inventory inventory;
 	public Camera playerCam;
 	public PlayerUI playerUI;
 	public GameObject droppedItemPrefab;
@@ -70,7 +67,7 @@ public class PlayerInventory : MonoBehaviour
 
 		InventoryUpdate();
 
-		SelectSlot(selectedItemSlot);
+		SelectSlot(selectedItem.Slot);
 	}
 
 	private void Update()
@@ -191,46 +188,32 @@ public class PlayerInventory : MonoBehaviour
 	}
 
 	#region inventory
-	public void InventoryUpdate()
-	{
-		for (int i = 0; i < inventory.Count; i++)
-		{
-			// if slot isn't empty but the item is missing or there are 0 item in that stack
-			if (inventory[i] != null && (inventory[i].data == null || inventory[i].count <= 0))
-			{
-
-				inventory[i] = null;
-			}
-		}
-
-		UIManager.InventoryUpdate();
-	}
 
 	public void SelectSlot(int index)
 	{
 		// tell the currently selected slot to deselect
-		if (selectedItemSlot >= 0 && hotbar[selectedItemSlot] != null)
+		if (selectedItem.Slot >= 0 && hotbar[selectedItem.Slot] != null)
 		{
-			hotbar[selectedItemSlot].OnDeselect(this);
+			hotbar[selectedItem.Slot].OnDeselect(this);
 
 		}
 
 		// select the new slot
 		if (index >= 0)
 		{
-			selectedItemData = hotbar[index];
+			selectedItem.Data = hotbar[index];
 
-			if (selectedItemData != null)
+			if (selectedItem.Data != null)
 			{
-				selectedItemData.OnSelect(this);
+				selectedItem.Data.OnSelect(this);
 			}
 		}
 		else // deselecting
 		{
-			selectedItemData = null;
+			selectedItem.Data = null;
 		}
 
-		selectedItemSlot = index;
+		selectedItem.Slot = index;
 		UIManager.SelectHotbarSlot(index);
 	}
 
@@ -436,36 +419,6 @@ public class PlayerInventory : MonoBehaviour
 		return remaining;
 	}
 
-	/// <summary>
-	/// Checks if player has at least the specified number of items in their inventory.
-	/// </summary>
-	/// <param name="item">The item to check for.</param>
-	/// <param name="amount">The minimum number of items required.</param>
-	/// <returns>True if player has at least <paramref name="amount"/> of <paramref name="item"/>.</returns>
-	public bool HasItem(ItemSO item, int amount)
-	{
-		int total = 0;
-
-		foreach (Item i in inventory)
-		{
-			// check item
-			if (i == null || i.data != item)
-			{
-				continue;
-			}
-			else // if it matches
-			{
-				total += i.count;
-			}
-
-			if (total >= amount)
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
 
 	public void DropItem(ItemSO item, int amount)
 	{
@@ -597,7 +550,7 @@ public class PlayerInventory : MonoBehaviour
 
 		if (input == 0) return;
 
-		int num = selectedItemSlot;
+		int num = selectedItem.Slot;
 
 		if (input > 0)
 		{
@@ -623,25 +576,25 @@ public class PlayerInventory : MonoBehaviour
 	public void OnPrimaryAction()
 	{
 		// must have a slot selected, an item in that slot, and at least 1 of those in your inventory
-		if (selectedItemSlot >= 0 && hotbar[selectedItemSlot] != null && HasItem(hotbar[selectedItemSlot], 1))
+		if (selectedItem.Slot >= 0 && hotbar[selectedItem.Slot] != null && HasItem(hotbar[selectedItem.Slot], 1))
 		{
-			if (hotbar[selectedItemSlot].PrimaryAction(this))
+			if (hotbar[selectedItem.Slot].PrimaryAction(this))
 			{
-				RemoveItems(hotbar[selectedItemSlot], 1);
+				RemoveItems(hotbar[selectedItem.Slot], 1);
 			}
 		}
 	}
 
 	public void OnDrop()
 	{
-		if (selectedItemData != null)
+		if (selectedItem.Data != null)
 		{
 			int amount = 1;
 
 			if (playerUI.IsShiftHeld)
-				amount = selectedItemData.maxStackSize;
+				amount = selectedItem.Data.maxStackSize;
 
-			DropItem(selectedItemData, amount);
+			DropItem(selectedItem.Data, amount);
 		}
 	}
 
