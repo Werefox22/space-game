@@ -10,6 +10,19 @@ public class PlayerInventory : MonoBehaviour
 	public List<ItemSO> hotbar = new List<ItemSO>(10);
 
 	[Header("Hotbar")]
+	public SelectedItem selectedItem;
+	public struct SelectedItem
+	{
+		public SelectedItem(int slot = -1, ItemSO data = null)
+		{
+			Slot = slot;
+			Data = data;
+		}
+
+		public int Slot;
+		public ItemSO Data;
+	}
+
 	public int selectedItemSlot = -1;
 	public ItemSO selectedItemData;
 
@@ -18,13 +31,16 @@ public class PlayerInventory : MonoBehaviour
 	public PlacementValidationScript previewValidator;
 	public Vector3 previewPos;
 	public Vector3 previewRot;
+	public float bigRotationCooldown = 0.5f;
 	public Material previewMaterial;
 	public Color validColor = Color.green;
 	public Color invalidColor = Color.red;
 
 	public StructureScript observingStructure;
 
+	Vector3 previewRotFrom;
 	Vector3 previewRotInput = Vector3.zero;
+	float rotCooldownTimer;
 
 	[Header("Interaction")]
 	public Interactable observingInteractable;
@@ -98,10 +114,14 @@ public class PlayerInventory : MonoBehaviour
 			observingInteractable = null;
 			UIManager.ClearInfoText();
 		}
-		
+
+		// count down the cooldown no matter what
+		rotCooldownTimer -= Time.deltaTime;
+
 		// preview
 		if (previewObj != null) // if previewing
 		{
+			// validation
 			if (previewValidator.IsValid)
 			{
 				previewMaterial.SetColor("_UnlitColor", validColor);
@@ -111,7 +131,21 @@ public class PlayerInventory : MonoBehaviour
 				previewMaterial.SetColor("_UnlitColor", invalidColor);
 			}
 
-			previewRot += previewRotInput;
+			// rotation
+			if (previewRotInput.magnitude >= 90)
+			{
+				// apply cooldown if rotating by 90 degrees
+				if (rotCooldownTimer <= 0)
+				{
+					rotCooldownTimer = bigRotationCooldown;
+					previewRotFrom = previewRot;
+					previewRot += previewRotInput;
+				}
+			}
+			else
+			{
+				previewRot += previewRotInput;
+			}
 
 			// if the raycast hit something
 			if (raycastHit)
@@ -120,7 +154,7 @@ public class PlayerInventory : MonoBehaviour
 				if (observingStructure != null)
 				{
 					previewPos = observingStructure.GetSnappedPosition(hitInfo.collider.transform.position + hitInfo.normal);
-					previewRot = observingStructure.transform.eulerAngles;
+					previewRot = observingStructure.GetSnappedAngle(previewRot);
 				}
 				else // not looking at a structure
 				{
@@ -132,11 +166,14 @@ public class PlayerInventory : MonoBehaviour
 				previewPos = playerCam.transform.position + playerCam.transform.forward * raycastMaxDistance;
 			}
 
-			previewObj.transform.SetPositionAndRotation(previewPos, Quaternion.Euler(previewRot));
+			float percent = 1 - (rotCooldownTimer / bigRotationCooldown);
+			Vector3 angles = Vector3.Lerp(previewRotFrom, previewRot, percent);
+			previewObj.transform.SetPositionAndRotation(previewPos, Quaternion.Euler(angles));
 		}
 		else // not previewing
 		{
 			previewRot = Vector3.zero;
+			previewRotFrom = Vector3.zero;
 		}
 	}
 
@@ -171,14 +208,14 @@ public class PlayerInventory : MonoBehaviour
 
 	public void SelectSlot(int index)
 	{
-		// if we're deselecting a slot (not selecting after having nothing selected)
+		// tell the currently selected slot to deselect
 		if (selectedItemSlot >= 0 && hotbar[selectedItemSlot] != null)
 		{
 			hotbar[selectedItemSlot].OnDeselect(this);
 
 		}
 
-		// if we're selecting a new slot (not pressing `, which would empty our hand)
+		// select the new slot
 		if (index >= 0)
 		{
 			selectedItemData = hotbar[index];
@@ -494,16 +531,16 @@ public class PlayerInventory : MonoBehaviour
 		// set up validation
 		previewValidator = previewObj.AddComponent<PlacementValidationScript>();
 		Rigidbody rb = previewObj.AddComponent<Rigidbody>();
-		rb.isKinematic = false;
+		rb.isKinematic = true;
+		rb.useGravity = false;
 
 		// modify colliders
 		Placeable p = previewObj.GetComponent<Placeable>();
-		p.collidersRoot.transform.localScale *= 0.99f;
+		p.collidersRoot.transform.localScale *= 0.95f;
 		foreach (Collider c in p.collidersRoot.GetComponentsInChildren<Collider>())
 		{
 			c.isTrigger = true;
 		}
-		
 
 		// set preview mat
 		foreach (Renderer r in previewObj.GetComponentsInChildren<Renderer>())
@@ -618,17 +655,38 @@ public class PlayerInventory : MonoBehaviour
 
 	public void OnRotatePitch(InputValue value)
 	{
-		previewRotInput.x = value.Get<float>();
+		float input = value.Get<float>();
+
+		if (playerUI.IsShiftHeld || observingStructure != null)
+		{
+			input *= 90;
+		}
+
+		previewRotInput.x = input;
 	}
 
 	public void OnRotateYaw(InputValue value)
 	{
-		previewRotInput.y = value.Get<float>();
+		float input = value.Get<float>();
+
+		if (playerUI.IsShiftHeld || observingStructure != null)
+		{
+			input *= 90;
+		}
+
+		previewRotInput.y = input;
 	}
 
 	public void OnRotateRoll(InputValue value)
 	{
-		previewRotInput.z = value.Get<float>();
+		float input = value.Get<float>();
+
+		if (playerUI.IsShiftHeld || observingStructure != null)
+		{
+			input *= 90;
+		}
+
+		previewRotInput.z = input;
 	}
 	#endregion
 }
