@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using FoxThorne;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,7 +64,8 @@ public class Inventory : MonoBehaviour
 	public int GiveItems(ItemSO itemToGive, int amount)
 	{
 		// check for existing stacks of this item
-		for (int i = 0; i < inventory.Count; i++)
+		// for (int i = 0; i < inventory.Count; i++)
+		foreach (Item item in data)
 		{
 			if (amount <= 0)
 			{
@@ -72,7 +74,7 @@ public class Inventory : MonoBehaviour
 			}
 
 			// skip empty and other items
-			if (inventory[i] == null || inventory[i].IsEmpty() || inventory[i].data != itemToGive)
+			if (item == null || item.IsEmpty() || item.Data != itemToGive)
 			{
 				continue;
 			}
@@ -80,39 +82,35 @@ public class Inventory : MonoBehaviour
 			// passing this check means we're looking at a slot that matches our item
 
 			// check how much room is left in the stack
-			int roomLeft = inventory[i].data.maxStackSize - inventory[i].count;
+			int roomLeft = item.Data.maxStackSize - item.Count;
 			// if the item has enough room left
 			if (roomLeft >= amount)
 			{
 				// add the items, update the inventory, return 0 since all items fit
-				inventory[i].count += amount;
+				item.Count += amount;
 				InventoryUpdate();
 				return 0;
 			}
 			else // the item did not have enough room left
 			{
 				// fill the stack to capacity
-				inventory[i].count += roomLeft;
+				item.Count += roomLeft;
 				amount -= roomLeft;
 			}
 		}
 
 		// if we've reached this point, we've checked the entire inventory and there are no more stacks of this item with room in them
 		// so now we have to find the first empty slot and fill it
-		for (int i = 0; i < inventory.Count; i++)
+		for (int i = 0; i < data.Count; i++)
 		{
 			// if we have found an empty slot
-			if (inventory[i] == null || inventory[i].IsEmpty())
+			if (data[i] == null || data[i].IsEmpty())
 			{
 				// can fit all items in one stack
 				if (itemToGive.maxStackSize >= amount)
 				{
 					// fill the slot
-					inventory[i] = new Item
-					{
-						Data = itemToGive,
-						Count = amount
-					};
+					data[i] = new Item(itemToGive, amount);
 
 					// end method
 					InventoryUpdate();
@@ -121,11 +119,7 @@ public class Inventory : MonoBehaviour
 				else // can't fit all items in one stack
 				{
 					// max out the slot
-					inventory[i] = new Item
-					{
-						Data = itemToGive,
-						Count = itemToGive.maxStackSize
-					};
+					data[i] = new Item(itemToGive, itemToGive.maxStackSize);
 
 					// get the remaining items and continue
 					amount -= itemToGive.maxStackSize;
