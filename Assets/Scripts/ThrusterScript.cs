@@ -1,6 +1,4 @@
-﻿using FoxThorne;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ThrusterScript : MonoBehaviour
 {
@@ -33,7 +31,6 @@ public class ThrusterScript : MonoBehaviour
 		}
 	}
 
-	float oldSpeed;
 	private void Update()
 	{
 		currentThrust = Mathf.Clamp(currentThrust, minThrust, maxThrust);
@@ -43,15 +40,17 @@ public class ThrusterScript : MonoBehaviour
 			flame.SetActive(thrusting);
 			flameLight.gameObject.SetActive(thrusting);
 		}
-
-
 	}
 
 	private void FixedUpdate()
 	{
 		if (thrusting)
 		{
-			rb.AddForceAtPosition(transform.up * currentThrust * newtonsToUnityMultiplier * Time.fixedDeltaTime, transform.position);
+			// rigidbody will only be present if structure is a ship
+			if (rb != null)
+			{
+				rb.AddForceAtPosition(currentThrust * newtonsToUnityMultiplier * Time.fixedDeltaTime * transform.up, transform.position);
+			}
 
 			// adjust visuals
 			float percent = currentThrust / maxThrust;

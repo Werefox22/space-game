@@ -23,7 +23,7 @@ public class DroppedItem : Interactable
 		}
 		else
 		{
-			item.count = rem;
+			item.Count = rem;
 			UIManager.Alert("Inventory full!");
 		}
 
@@ -32,7 +32,7 @@ public class DroppedItem : Interactable
 
 	public override string GetInfoText()
 	{
-		return $"{item.data.name} [{item.count}]";
+		return $"{item.Data.name} [{item.Count}]";
 	}
 
 	private void OnCollisionEnter(Collision collision)
@@ -43,9 +43,9 @@ public class DroppedItem : Interactable
 		{
 			DroppedItem script = g.GetComponent<DroppedItem>();
 
-			if (preference <= script.preference && script.item.data == item.data)
+			if (preference <= script.preference && script.item.Data == item.Data)
 			{
-				script.item.count += item.count;
+				script.item.Count += item.Count;
 				script.preference += preference;
 				Destroy(gameObject);
 			}

@@ -265,8 +265,8 @@ public class UIManager : MonoBehaviour
 			{
 				Item item = new Item
 				{
-					data = player.hotbar[i],
-					count = player.GetTotalItemCount(player.hotbar[i])
+					Data = player.hotbar[i],
+					Count = player.GetTotalItemCount(player.hotbar[i])
 				};
 
 				invHotbarSlots[i].SetItem(item);
@@ -295,21 +295,21 @@ public class UIManager : MonoBehaviour
 			to = from;
 			from = null;
 		}
-		else if (from.data == to.data) // if combining stacks
+		else if (from.Data == to.Data) // if combining stacks
 		{
 			// check how much space is in the stack
-			int difference = to.data.maxStackSize - to.count;
+			int difference = to.Data.maxStackSize - to.Count;
 			
 			// if there's room for all of it
-			if (difference >= from.count)
+			if (difference >= from.Count)
 			{
-				to.count += from.count;
+				to.Count += from.Count;
 				from = null;
 			}
 			else // not enough room
 			{
-				to.count += difference;
-				from.count -= difference;
+				to.Count += difference;
+				from.Count -= difference;
 			}
 		}
 		else // items don't match

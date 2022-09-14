@@ -18,8 +18,8 @@ public class ItemSlot : Selectable
 
 	public void SetItem(Item newItem)
 	{
-		item = newItem.data;
-		count = newItem.count;
+		item = newItem.Data;
+		count = newItem.Count;
 
 		itemImage.sprite = item.itemIcon;
 		countText.text = count.ToString();

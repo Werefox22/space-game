@@ -63,12 +63,13 @@
     <Compile Include="Assets\Scripts\DroppedItem.cs" />
     <Compile Include="Assets\Scripts\Placeable\Placeable.cs" />
     <Compile Include="Assets\Scripts\UI\UIAudioScript.cs" />
-    <Compile Include="Assets\Scripts\PlayerSettingsReferences.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerSettingsReferences.cs" />
     <Compile Include="Assets\Scripts\FoxConsole\ConsoleReader.cs" />
     <Compile Include="Assets\Scripts\UI\HUDHotbarSlot.cs" />
+    <Compile Include="Assets\Scripts\PlacementValidationScript.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\ItemSO.cs" />
-    <Compile Include="Assets\Scripts\PlayerSettings.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerSettings.cs" />
     <Compile Include="Assets\Scripts\ThrusterScript.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
     <Compile Include="Assets\Scripts\ItemRegistry.cs" />
@@ -84,7 +85,7 @@
     <Compile Include="Assets\Scripts\UI\ItemSlot.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerUI.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\PlacementValidationScript.cs" />
+    <Compile Include="Assets\Scripts\Inventory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

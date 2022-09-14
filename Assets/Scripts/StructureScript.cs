@@ -28,12 +28,25 @@ public class StructureScript : MonoBehaviour
 
 	public Vector3 GetSnappedPosition(Vector3 position)
 	{
-		Vector3 localPos = transform.InverseTransformPoint(position);
+		// switch to local
+		position = transform.InverseTransformPoint(position);
+		// round it
+		position = Utility.RoundVectorToInt(position);
+		// switch back to global
+		position = transform.TransformPoint(position);
+		// return
+		return position;
+	}
 
-		localPos = Utility.RoundVectorToInt(localPos);
-
-		Vector3 worldPos = transform.TransformPoint(localPos);
-
-		return worldPos;
+	public Vector3 GetSnappedAngle(Vector3 angle)
+	{
+		// switch to local
+		angle -= transform.eulerAngles;
+		// round it
+		angle = Utility.RoundToNearest(angle, 90);
+		// switch back to global
+		angle += transform.eulerAngles;
+		// return
+		return angle;
 	}
 }

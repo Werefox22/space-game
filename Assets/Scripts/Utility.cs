@@ -146,8 +146,6 @@ namespace FoxThorne
 			return value >= min && value <= max;
 		}
 
-
-
 		/// <summary>
 		/// Takes a value and modifies it to be inbetween 0 and 360.
 		/// </summary>
@@ -293,6 +291,38 @@ namespace FoxThorne
 		#endregion
 
 		#region rounding
+		/// <summary>
+		/// Rounds <paramref name="number"/> to the nearest multiple of <paramref name="roundTo"/>.
+		/// </summary>
+		/// <param name="number">The input number.</param>
+		/// <param name="roundTo">The number to be rounded to.</param>
+		/// <returns><paramref name="number"/> rounded to the nearest multiple of <paramref name="roundTo"/>.</returns>
+		public static int RoundToNearest(float number, int roundTo)
+		{
+			float num = MoveToRange(number, 0, roundTo);
+			float half = (float)roundTo / 2;
+
+			if (num < half)
+			{
+				return Mathf.RoundToInt(number - num);
+			}
+			else
+			{
+				return Mathf.RoundToInt(number + (90 - num));
+			}
+		}
+
+		/// <summary>
+		/// Rounds each axis of <paramref name="vector"/> to the nearest multiple of <paramref name="roundTo"/>.
+		/// </summary>
+		/// <param name="vector">The input vector.</param>
+		/// <param name="roundTo">The number to be rounded to.</param>
+		/// <returns><paramref name="vector"/> rounded to the nearest multiple of <paramref name="roundTo"/>.</returns>
+		public static Vector3Int RoundToNearest(Vector3 vector, int roundTo)
+		{
+			return new Vector3Int(RoundToNearest(vector.x, roundTo), RoundToNearest(vector.y, roundTo), RoundToNearest(vector.z, roundTo));
+		}
+
 		public static float RoundDecimal(float value, int decimalPlaces)
 		{
 			if (decimalPlaces == 0)

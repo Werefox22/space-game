@@ -187,6 +187,7 @@ MonoBehaviour:
   previewValidator: {fileID: 0}
   previewPos: {x: 0, y: 0, z: 0}
   previewRot: {x: 0, y: 0, z: 0}
+  bigRotationCooldown: 0.25
   previewMaterial: {fileID: 2100000, guid: 16723b6e48aab1e41bccd3ab60e0fe03, type: 2}
   validColor: {r: 0, g: 1, b: 0, a: 0.5019608}
   invalidColor: {r: 1, g: 0, b: 0, a: 0.5019608}
